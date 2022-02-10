@@ -34,7 +34,12 @@ while True:
     for comment in rms.comments.new(limit=25):
         if comment.id not in replied_to:
             print("Got one!")
-            comment.reply(rebuttal)
+
+            try:
+                comment.reply(rebuttal)
+            except:
+                print("The show must go on…")
+
             replied_to.append(comment.id)
             with open("replied_to.txt", "a") as db:
                 db.write(comment.id + "\n")
