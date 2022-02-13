@@ -43,3 +43,16 @@ while True:
             replied_to.append(comment.id)
             with open("replied_to.txt", "a") as db:
                 db.write(comment.id + "\n")
+
+    for reply in reddit.inbox.comment_replies():
+        if reply.id not in replied_to and "bad bot" in reply.body.lower():
+            print("Bad human")
+
+            try:
+                reply.reply("Bad human")
+            except:
+                print("The show must go on…")
+
+            replied_to.append(reply.id)
+            with open("replied_to.txt", "a") as db:
+                db.write(reply.id + "\n")
